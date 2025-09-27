@@ -1,0 +1,13 @@
+# build
+target/*
+tmp
+
+# rustfmt
+**/*.rs.bk
+
+# macOS
+.DS_Store
+
+# env
+.env
+

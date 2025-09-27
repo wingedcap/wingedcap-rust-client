@@ -1,0 +1,96 @@
+# setup
+
+[tasks.setup]
+run_task = { name = ["tw-setup"] }
+
+
+## setup tw
+
+[tasks.tw-curl]
+script = "mkdir -p tmp && curl -sL https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64 -o tmp/tw"
+
+[tasks.tw-chmod]
+script = "chmod +x tmp/tw"
+
+[tasks.tw-setup]
+run_task = { name = ["tw-curl", "tw-chmod"] }
+
+
+# twilwindcss
+
+[tasks.tw-dev]
+script = "tmp/tw -i ./src/theme/theme.css -o ./tmp/styles.css --watch > /dev/null 2>&1"
+
+[tasks.tw-build]
+script = "tmp/tw -i ./src/theme/theme.css -o ./tmp/styles.css > /dev/null 2>&1"
+
+
+# web
+
+[tasks.dx-dev-web]
+script = "dx serve --platform web --port 80"
+
+[tasks.dev-web]
+run_task = { name = ["tw-dev", "dx-dev-web"], parallel = true }
+
+[tasks.web]
+script = "dotenv cargo make dev-web"
+
+[tasks.dx-build-web]
+script = ["dx bundle --platform web"]
+
+[tasks.build-web]
+run_task = { name = ["tw-build", "dx-build-web"] }
+
+[tasks.web-local]
+script = "dotenv cargo make build-web"
+
+
+# desktop
+
+[tasks.dx-dev-desktop]
+script = "dx serve --platform desktop"
+
+[tasks.dev-desktop]
+run_task = { name = ["dx-dev-desktop"] }
+
+[tasks.desktop]
+script = "dotenv cargo make dev-desktop"
+
+[tasks.dx-build-desktop]
+script = "dx bundle --platform desktop"
+
+[tasks.build-desktop]
+run_task = { name = ["tw-build", "dx-build-desktop"] }
+
+[tasks.desktop-local]
+script = "dotenv cargo make build-desktop"
+
+
+# android
+
+[tasks.dx-dev-android]
+script = "dx serve --platform android -i false"
+
+[tasks.emulate-android]
+script = "emulator -avd test -netdelay none -netspeed full > /dev/null 2>&1"
+
+[tasks.log-android]
+script = "adb logcat -T 1 | awk '/RustStdoutStderr/ && !/s_glBindAttribLocation/ && !/dns_config_service_android/ && !/simple_file_enumerator/ { sub(/.*RustStdoutStderr: /, \"\"); print; }'"
+
+[tasks.dev-android]
+run_task = { name = ["tw-dev", "dx-dev-android", "emulate-android", "log-android"], parallel = true }
+
+[tasks.android]
+script = "dotenv cargo make dev-android"
+
+[tasks.dx-build-android]
+script = "dx bundle --platform android"
+
+[tasks.build-android]
+run_task = { name = ["tw-build", "dx-build-android"] }
+
+[tasks.android-local]
+script = "dotenv cargo make build-android"
+
+

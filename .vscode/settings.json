@@ -1,0 +1,22 @@
+{
+  "notebook.defaultFormatter": "rust-lang.rust-analyzer",
+
+  "[json]": {
+    "editor.formatOnSave": false
+  },
+
+  "material-icon-theme.folders.associations": {
+    "native": "client"
+  },
+
+  "tailwindCSS.includeLanguages": {
+    "rust": "html"
+  },
+
+  "tailwindCSS.experimental.classRegex": ["class: \"(.*)\""],
+
+  "rust-analyzer.cargo.extraEnv": {
+    "HUB_HOST": "",
+    "HUB_PK": ""
+  }
+}
