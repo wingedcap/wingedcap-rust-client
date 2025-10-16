@@ -209,13 +209,13 @@ pub fn SenderView() -> Element {
     };
 
     rsx! {
-        Card { class: "",
-            CardHeader { class: "flex flex-row items-center gap-1 pl-1 mb-4",
-                div { class: "grow",
+        Card { class: "animate-fade-in",
+            CardHeader { class: "flex flex-row items-center gap-2 mb-6",
+                div { class: "grow min-w-0",
                     CardTitle { class: "relative flex items-center",
                         span { "Send" }
 
-                        div { class: "absolute font-normal right-1 flex gap-1",
+                        div { class: "absolute font-normal right-2.5 flex gap-1",
                             CreateSecretFormDialog {
                                 on_submit: move |(data, callback): (CreateSecretFormData, Callback<Result<(), String>>)| async move {
                                     callback(handle_create(data).await);
@@ -249,7 +249,7 @@ pub fn SenderView() -> Element {
             }
 
             if let Some(stored_senders) = stored_senders() {
-                CardContent { class: "flex flex-col gap-2",
+                CardContent { class: "flex flex-col gap-3",
                     for (_ , (storage_id , stored_sender)) in stored_senders.iter().map(|s| s.clone()).enumerate() {
                         {
                             let id = storage_id.clone();
@@ -266,24 +266,18 @@ pub fn SenderView() -> Element {
                     }
 
                     if stored_senders.is_empty() {
-                        div { class: "rounded-md border border-primary bg-primary/10 px-4 py-2 text-sm text-primary animate-fade-in",
-                            p { class: "font-medium mb-2", "No secrets to send yet? Let's fix it!" }
-
-                            p {
-                                "You can create one from scratch"
-                                span { class: "ml-1",
-                                    "("
-                                    Plus { class: "inline" }
-                                    ")"
-                                }
+                        div { class: "rounded-lg border border-primary/40 bg-primary/5 px-5 py-4 text-sm text-primary animate-fade-in",
+                            p { class: "font-semibold mb-3 text-base",
+                                "No secrets to send yet? Let's fix it!"
                             }
-                            p { class: "",
-                                "Or load a backup from clipboard"
-                                span { class: "ml-1",
-                                    "("
-                                    ClipboardList { class: "inline" }
-                                    ")"
-                                }
+
+                            p { class: "mb-2 flex items-center gap-2",
+                                Plus { class: "inline size-4 stroke-primary/70" }
+                                span { "You can create one from scratch" }
+                            }
+                            p { class: "flex items-center gap-2",
+                                ClipboardList { class: "inline size-4 stroke-primary/70" }
+                                span { "Or load a backup from clipboard" }
                             }
                         }
                     }

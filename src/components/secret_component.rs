@@ -78,7 +78,7 @@ pub fn Secret(
             state: Some(ReceiverState::Locked { .. }),
             ..
         }) => rsx! {
-            LockKeyhole { class: "stroke-destructive animate-fade-in" }
+            LockKeyhole { class: "text-orange-500 animate-fade-in" }
         },
 
         RoleProps::Sender(SenderProps {
@@ -89,23 +89,25 @@ pub fn Secret(
             state: Some(ReceiverState::Unlocked { .. }),
             ..
         }) => rsx! {
-            LockKeyholeOpen { class: "stroke-primary animate-fade-in" }
+            LockKeyholeOpen { class: "stroke-green-500 animate-fade-in" }
         },
     };
 
     rsx! {
-        div { class: "flex items-center justify-between gap-1 rounded-md border border-dashed p-1",
-            div { class: "flex grow items-center gap-1",
-                div { class: "flex size-8 items-center justify-center", {status_icon} }
+        div { class: "group flex items-center justify-between gap-2 rounded-lg border border-border/60 bg-card/50 p-2.5 hover:border-border hover:bg-card/80 hover:shadow-md transition-all duration-200",
+            div { class: "flex grow items-center gap-2.5 min-w-0",
+                div { class: "flex size-9 items-center justify-center shrink-0 rounded-md bg-muted/50",
+                    {status_icon}
+                }
 
-                h1 { class: "flex grow items-center gap-2 text-sm font-bold",
-                    div { class: "grid place-content-center",
+                h1 { class: "flex grow items-center gap-2 text-sm font-semibold min-w-0",
+                    div { class: "grid place-content-center min-w-0",
                         span { class: "truncate", "{label}" }
                     }
                 }
             }
 
-            div { class: "flex items-center gap-1",
+            div { class: "flex items-center gap-1 shrink-0",
                 if let RoleProps::Receiver(
                     ReceiverProps { state: Some(ReceiverState::Unlocked { unlocked_sets, .. }), .. },
                 ) = role_props.clone()

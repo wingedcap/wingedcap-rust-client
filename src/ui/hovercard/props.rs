@@ -175,6 +175,9 @@ pub fn HoverCardTrigger(mut props: HoverCardTriggerProps) -> Element {
 
 #[derive(Clone, PartialEq, Props, UiComp)]
 pub struct HoverCardContentProps {
+    #[props(optional, default)]
+    pub side: Side,
+
     #[props(extends = div, extends = GlobalAttributes)]
     attributes: Vec<Attribute>,
 
@@ -187,6 +190,7 @@ pub struct HoverCardContentProps {
 impl std::default::Default for HoverCardContentProps {
     fn default() -> Self {
         Self {
+            side: Side::Right,
             attributes: Vec::<Attribute>::default(),
             animation: ReadOnlySignal::<Animation>::default(),
             children: rsx! {},

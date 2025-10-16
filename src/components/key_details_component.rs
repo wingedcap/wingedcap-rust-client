@@ -1,5 +1,7 @@
 use dioxus::prelude::*;
 
+use dioxus_tw_components::attributes::Side;
+
 use wingedcap::client::{ServerMeta, ServerWithMeta};
 
 use crate::ui::hovercard::{HoverCard, HoverCardContent, HoverCardTrigger};
@@ -29,18 +31,20 @@ pub fn KeyDetails(props: KeyDetailsProps) -> Element {
     } = meta;
 
     rsx! {
-        div { class: "flex items-center w-full gap-2",
+        div { class: "flex items-center w-full gap-2.5",
             HoverCard {
-                HoverCardTrigger { class: "",
+                HoverCardTrigger { class: "shrink-0",
                     if provider.is_some() {
                         IdCard { class: "" }
                     } else {
-                        HatGlasses { class: "" }
+                        HatGlasses { class: "text-muted-foreground" }
                     }
                 }
-                HoverCardContent { class: "",
-                    h3 { class: "font-semibold mb-1", "Provider" }
-                    p { class: if provider.is_some() { "" } else { "italic" },
+                HoverCardContent { class: "", side: Side::Left,
+                    h3 { class: "font-semibold mb-1.5 text-xs uppercase tracking-wide",
+                        "Provider"
+                    }
+                    p { class: if provider.is_some() { "" } else { "italic opacity-70" },
                         {provider.clone().unwrap_or("unknown".to_string())}
                     }
                 }
@@ -48,14 +52,16 @@ pub fn KeyDetails(props: KeyDetailsProps) -> Element {
 
             Separator { class: "w-auto grow" }
 
-            div { class: "flex items-center",
+            div { class: "flex items-center gap-1",
                 HoverCard {
                     HoverCardTrigger {
                         Fingerprint { class: "" }
                     }
-                    HoverCardContent { class: "break-all",
-                        h3 { class: "font-semibold mb-1", "Fingerprint" }
-                        p { class: "", "{pk}" }
+                    HoverCardContent { class: "break-all", side: Side::Top,
+                        h3 { class: "font-semibold mb-1.5 text-xs uppercase tracking-wide",
+                            "Fingerprint"
+                        }
+                        p { class: "font-mono text-xs", "{pk}" }
                     }
                 }
 
@@ -63,9 +69,11 @@ pub fn KeyDetails(props: KeyDetailsProps) -> Element {
                     HoverCardTrigger {
                         Link { class: "" }
                     }
-                    HoverCardContent { class: "max-w-60 break-all",
-                        h3 { class: "font-semibold mb-1", "Link" }
-                        p { class: "", "{host}" }
+                    HoverCardContent { class: "break-all", side: Side::Top,
+                        h3 { class: "font-semibold mb-1.5 text-xs uppercase tracking-wide",
+                            "Link"
+                        }
+                        p { class: "text-xs", "{host}" }
                     }
                 }
 
@@ -74,12 +82,14 @@ pub fn KeyDetails(props: KeyDetailsProps) -> Element {
                         if hoster.is_some() {
                             Server { class: "" }
                         } else {
-                            ServerOff { class: "" }
+                            ServerOff { class: "text-muted-foreground" }
                         }
                     }
                     HoverCardContent { class: "",
-                        h3 { class: "font-semibold mb-1", "Hoster" }
-                        p { class: if hoster.is_some() { "" } else { "italic" },
+                        h3 { class: "font-semibold mb-1.5 text-xs uppercase tracking-wide",
+                            "Hoster"
+                        }
+                        p { class: if hoster.is_some() { "" } else { "italic opacity-70" },
                             {hoster.clone().unwrap_or("unknown".to_string())}
                         }
                     }
@@ -90,12 +100,14 @@ pub fn KeyDetails(props: KeyDetailsProps) -> Element {
                         if location.is_some() {
                             MapPin { class: "" }
                         } else {
-                            MapPinOff { class: "" }
+                            MapPinOff { class: "text-muted-foreground" }
                         }
                     }
                     HoverCardContent { class: "",
-                        h3 { class: "font-semibold mb-1", "Location" }
-                        p { class: if location.is_some() { "" } else { "italic" },
+                        h3 { class: "font-semibold mb-1.5 text-xs uppercase tracking-wide",
+                            "Location"
+                        }
+                        p { class: if location.is_some() { "" } else { "italic opacity-70" },
                             {location.clone().unwrap_or("unknown".to_string())}
                         }
                     }

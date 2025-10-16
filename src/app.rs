@@ -44,22 +44,22 @@ pub fn App() -> Element {
 
         Toaster {
 
-            main { class: "relative mx-auto max-w-200 h-screen w-screen min-w-90 grow px-4",
-                div { class: "relative flex h-full items-center justify-center",
-                    div { class: "w-full self-start pt-[20vh]",
+            main { class: "relative mx-auto max-w-4xl h-screen w-full min-w-0 px-4 sm:px-6 md:px-8",
+                div { class: "relative flex h-full items-center justify-center py-8",
+                    div { class: "w-full self-start pt-[12vh] sm:pt-[15vh] md:pt-[18vh]",
 
                         Tabs {
                             default_tab: preferred_role,
                             class: "w-full",
                             on_change: on_tab_change,
-                            TabsList {
+                            TabsList { class: "mb-4",
                                 TabsTrigger { id: "send",
                                     "Sender"
-                                    Send { class: "ml-2 size-3" }
+                                    Send { class: "ml-1.5 size-3.5" }
                                 }
                                 TabsTrigger { id: "receive",
                                     "Receiver"
-                                    ScanEye { class: "ml-2" }
+                                    ScanEye { class: "ml-1.5 size-3.5" }
                                 }
                             }
 

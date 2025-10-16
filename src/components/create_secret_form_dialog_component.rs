@@ -195,8 +195,8 @@ pub fn CreateSecretFormDialog(props: CreateSecretFormDialogProps) -> Element {
 
             ModalBackground {}
 
-            ModalContent {
-                CardHeader { class: "mb-4",
+            ModalContent { class: "md:min-w-lg",
+                CardHeader { class: "mb-6",
                     CardTitle { "Create a Secret" }
                     CardDescription { "Enter the message and key configuration" }
                 }
@@ -214,7 +214,7 @@ pub fn CreateSecretFormDialog(props: CreateSecretFormDialogProps) -> Element {
 
                     div { class: "@container flex flex-col gap-4 z-50",
 
-                        div { class: "flex flex-col gap-x-2 gap-y-4 @md:flex-row",
+                        div { class: "flex flex-col gap-x-2 gap-y-4 @md:flex-row justify-between",
 
                             // Label
                             div { class: "flex items-center gap-2",
@@ -232,7 +232,9 @@ pub fn CreateSecretFormDialog(props: CreateSecretFormDialogProps) -> Element {
                                         Info { class: "text-blue-500" }
                                     }
 
-                                    HoverCardContent { class: "max-w-50", "A short label that only you see" }
+                                    HoverCardContent { class: "",
+                                        "A short title just for you to keep track. No one else will see it."
+                                    }
                                 }
                             }
 
@@ -331,7 +333,7 @@ pub fn CreateSecretFormDialog(props: CreateSecretFormDialogProps) -> Element {
                                     div { class: "flex flex-col gap-2",
                                         for (index , server) in form_data().servers.iter().enumerate() {
                                             div { class: "flex gap-2",
-                                                div { class: "border border-border rounded-md grow flex items-center h-9 pl-1",
+                                                div { class: "border border-border rounded-md grow flex items-center h-9 px-1",
                                                     KeyDetails { key_with_meta: server.clone() }
                                                 }
 

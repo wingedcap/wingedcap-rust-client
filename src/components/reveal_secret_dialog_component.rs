@@ -26,18 +26,18 @@ pub fn RevealSecretDialog(
 
             ModalBackground {}
 
-            ModalContent {
+            ModalContent { class: "md:min-w-lg",
                 if let Some(decrypted_message) = decrypted_message {
-                    CardHeader { class: "mb-2",
+                    CardHeader { class: "mb-4",
                         CardTitle { "Secret unlocked" }
                         CardDescription { "You can finally read it !" }
                     }
 
-                    div { class: "max-h-[50vh] rounded-md border border-dashed p-2 text-sm",
+                    div { class: "max-h-[50vh] overflow-auto rounded-lg border border-border/60 bg-muted/30 p-4 text-sm leading-relaxed",
                         "{decrypted_message}"
                     }
                 } else {
-                    CardHeader { class: "mb-2",
+                    CardHeader { class: "mb-4",
                         CardTitle { "Failed to decrypt your secret" }
                         CardDescription { "This should never happen, please contact support." }
                     }

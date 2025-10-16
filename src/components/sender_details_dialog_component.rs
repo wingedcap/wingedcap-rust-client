@@ -71,8 +71,8 @@ pub fn SenderDetailsDialog(
 
             ModalBackground {}
 
-            ModalContent {
-                CardHeader { class: "",
+            ModalContent { class: "sm:min-w-md md:min-w-lg",
+                CardHeader { class: "mb-4",
                     CardTitle { class: "",
                         form {
                             class: "flex items-center gap-1 relative",
@@ -133,7 +133,7 @@ pub fn SenderDetailsDialog(
                                 }
                             }
                         }
-                    
+
 
                     }
                     CardDescription { "Detailed configuration and management" }

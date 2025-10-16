@@ -3,25 +3,25 @@ use dioxus_tw_components::attributes::*;
 
 impl Class for CardProps {
     fn base(&self) -> &'static str {
-        "bg-card text-card-foreground shadow-floating rounded-md border-none p-6"
+        "bg-card/95 text-card-foreground shadow-card hover:shadow-floating transition-shadow duration-300 rounded-lg border border-border/50 p-6"
     }
 }
 
 impl Class for CardHeaderProps {
     fn base(&self) -> &'static str {
-        "flex flex-col space-y-1.5"
+        "flex flex-col space-y-2"
     }
 }
 
 impl Class for CardTitleProps {
     fn base(&self) -> &'static str {
-        "text-xl font-semibold leading-none tracking-tight"
+        "text-2xl font-semibold leading-tight tracking-tight text-foreground"
     }
 }
 
 impl Class for CardDescriptionProps {
     fn base(&self) -> &'static str {
-        "text-muted-foreground text-sm"
+        "text-muted-foreground text-sm leading-relaxed"
     }
 }
 
