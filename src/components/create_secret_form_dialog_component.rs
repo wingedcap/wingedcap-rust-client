@@ -214,7 +214,7 @@ pub fn CreateSecretFormDialog(props: CreateSecretFormDialogProps) -> Element {
 
                     div { class: "@container flex flex-col gap-4 z-50",
 
-                        div { class: "flex flex-col gap-x-2 gap-y-4 @md:flex-row justify-between",
+                        div { class: "flex flex-col gap-x-4 gap-y-4 @md:flex-row justify-between",
 
                             // Label
                             div { class: "flex items-center gap-2",
@@ -281,7 +281,7 @@ pub fn CreateSecretFormDialog(props: CreateSecretFormDialogProps) -> Element {
                                         }
                                     }
 
-                                    Separator { class: "w-auto grow" }
+                                    Separator { class: "w-auto grow @md:hidden" }
 
                                     HoverCard {
                                         HoverCardTrigger {
