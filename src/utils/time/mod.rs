@@ -6,3 +6,6 @@ pub use time_to_seconds_util::*;
 
 pub mod get_time_unit_name_util;
 pub use get_time_unit_name_util::*;
+
+pub mod get_time_unit_from_name_util;
+pub use get_time_unit_from_name_util::*;
