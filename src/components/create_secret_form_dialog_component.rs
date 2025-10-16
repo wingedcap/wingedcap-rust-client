@@ -14,7 +14,7 @@ use crate::components::KeyDetails;
 use crate::types::{Time, TimeUnit};
 
 use crate::ui::toast::{use_toast, ToastRenderer};
-use crate::utils::get_time_unit_name;
+use crate::utils::{get_time_unit_from_name, get_time_unit_name};
 
 use crate::manager::get_server;
 
@@ -259,6 +259,14 @@ pub fn CreateSecretFormDialog(props: CreateSecretFormDialogProps) -> Element {
                                         Select {
                                             class: "absolute right-1 h-6 w-28",
                                             value: "{get_time_unit_name(form_data().timelock.unit)}",
+                                            on_value_change: move |value: String| {
+                                                form_data
+                                                    .with_mut(|data| {
+                                                        if let Ok(unit) = get_time_unit_from_name(value) {
+                                                            data.timelock.unit = unit;
+                                                        }
+                                                    });
+                                            },
 
                                             SelectTrigger { SelectValue {} }
                                             SelectContent { class: "",
