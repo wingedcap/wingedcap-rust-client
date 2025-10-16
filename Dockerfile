@@ -9,7 +9,7 @@ RUN cargo install cargo-make
 RUN cargo make setup
 
 RUN apt update
-RUN apt-get install pkg-config libssl-dev
+RUN apt-get install -y pkg-config libssl-dev
 
 RUN cargo install cargo-binstall
 
