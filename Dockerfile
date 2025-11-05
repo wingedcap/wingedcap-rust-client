@@ -13,7 +13,7 @@ RUN apt-get install -y pkg-config libssl-dev
 
 RUN cargo install cargo-binstall
 
-RUN cargo binstall dioxus-cli
+RUN cargo binstall dioxus-cli@0.6.3
 
 RUN cargo make build-web
 
