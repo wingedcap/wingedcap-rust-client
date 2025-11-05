@@ -1,5 +1,9 @@
 FROM rust:1.90-bookworm AS builder
 
+ARG PORT
+ARG HUB_HOST
+ARG HUB_PK
+
 WORKDIR /app
 
 COPY . .
