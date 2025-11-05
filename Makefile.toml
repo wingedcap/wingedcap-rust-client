@@ -28,7 +28,7 @@ script = "tmp/tw -i ./src/theme/theme.css -o ./tmp/styles.css > /dev/null 2>&1"
 # web
 
 [tasks.dx-dev-web]
-script = "dx serve --platform web --port 80"
+script = "dx serve --platform web --port $PORT"
 
 [tasks.dev-web]
 run_task = { name = ["tw-dev", "dx-dev-web"], parallel = true }
