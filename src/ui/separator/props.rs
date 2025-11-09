@@ -1,6 +1,8 @@
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
+
 use dioxus_tw_components_macro::UiComp;
+
+use crate::types::*;
 
 #[derive(Default, Clone, PartialEq, Props, UiComp)]
 pub struct SeparatorProps {
@@ -8,7 +10,7 @@ pub struct SeparatorProps {
     attributes: Vec<Attribute>,
 
     #[props(optional, default)]
-    pub orientation: ReadOnlySignal<Orientation>,
+    pub orientation: ReadSignal<Orientation>,
 }
 
 #[component]

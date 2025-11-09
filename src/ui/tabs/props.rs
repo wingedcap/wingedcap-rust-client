@@ -1,13 +1,14 @@
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
 use dioxus_tw_components_macro::UiComp;
+
+use crate::types::*;
 
 struct TabsState(String);
 
 #[derive(Clone, PartialEq, Props, UiComp)]
 pub struct TabsProps {
     #[props(optional)]
-    default_tab: ReadOnlySignal<String>,
+    default_tab: ReadSignal<String>,
 
     #[props(optional)]
     on_change: Option<Callback<String>>,
@@ -21,7 +22,7 @@ pub struct TabsProps {
 impl std::default::Default for TabsProps {
     fn default() -> Self {
         Self {
-            default_tab: ReadOnlySignal::<String>::default(),
+            default_tab: ReadSignal::<String>::default(),
             on_change: None,
             attributes: Vec::<Attribute>::default(),
             children: rsx! {},
@@ -84,7 +85,7 @@ pub struct TabsTriggerProps {
     attributes: Vec<Attribute>,
 
     #[props(optional)]
-    id: ReadOnlySignal<String>,
+    id: ReadSignal<String>,
 
     children: Element,
 }
@@ -93,7 +94,7 @@ impl std::default::Default for TabsTriggerProps {
     fn default() -> Self {
         Self {
             attributes: Vec::<Attribute>::default(),
-            id: ReadOnlySignal::<String>::default(),
+            id: ReadSignal::<String>::default(),
             children: rsx! {},
         }
     }
@@ -125,7 +126,7 @@ pub struct TabsContentProps {
     attributes: Vec<Attribute>,
 
     #[props(optional)]
-    id: ReadOnlySignal<String>,
+    id: ReadSignal<String>,
 
     children: Element,
 }
@@ -134,7 +135,7 @@ impl std::default::Default for TabsContentProps {
     fn default() -> Self {
         Self {
             attributes: Vec::<Attribute>::default(),
-            id: ReadOnlySignal::<String>::default(),
+            id: ReadSignal::<String>::default(),
             children: rsx! {},
         }
     }

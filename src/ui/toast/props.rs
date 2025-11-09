@@ -1,78 +1,82 @@
 use dioxus::prelude::*;
-use dioxus_tw_components::{attributes::*, hooks::use_unique_id};
+
 use dioxus_tw_components_macro::UiComp;
 
 use crate::utils::time::wait;
 
 use lucide_dioxus::X;
 
+use crate::types::*;
+
+use crate::utils::use_unique_id;
+
 /// Used to keep track of all the current toasts, for now it only keeps 1 Toast
 #[derive(Default)]
 pub struct ToasterState {
     pub toasts: Vec<Toast>,
-    pub shape: Toast,
+    // pub shape: Toast,
 }
 
 pub trait ToastRenderer {
-    fn description(&mut self, description: Element) -> &mut Self;
-    fn color(&mut self, color: Color) -> &mut Self;
-    fn title(&mut self, title: impl ToString) -> &mut Self;
-    fn duration_in_ms(&mut self, duration: u32) -> &mut Self;
-    fn animation(&mut self, animation: Animation) -> &mut Self;
-    fn is_closable(&mut self, is_closable: bool) -> &mut Self;
-    fn success(&mut self, description: impl ToString);
+    // fn description(&mut self, description: Element) -> &mut Self;
+    // fn color(&mut self, color: Color) -> &mut Self;
+    // fn title(&mut self, title: impl ToString) -> &mut Self;
+    // fn duration_in_ms(&mut self, duration: u32) -> &mut Self;
+    // fn animation(&mut self, animation: Animation) -> &mut Self;
+    // fn is_closable(&mut self, is_closable: bool) -> &mut Self;
+    // fn success(&mut self, description: impl ToString);
     fn error(&mut self, description: impl ToString);
-    fn loading(&mut self, description: impl ToString);
+    // fn loading(&mut self, description: impl ToString);
 }
 
 impl ToastRenderer for Signal<ToasterState> {
-    fn description(&mut self, description: Element) -> &mut Self {
-        let shape = self.peek().shape.clone();
-        self.write().shape = shape.description(description);
-        self
-    }
+    // fn description(&mut self, description: Element) -> &mut Self {
+    //     let shape = self.peek().shape.clone();
+    //     self.write().shape = shape.description(description);
+    //     self
+    // }
 
-    fn color(&mut self, color: Color) -> &mut Self {
-        let shape = self.peek().shape.clone();
-        self.write().shape = shape.color(color);
-        self
-    }
+    // fn color(&mut self, color: Color) -> &mut Self {
+    //     let shape = self.peek().shape.clone();
+    //     self.write().shape = shape.color(color);
+    //     self
+    // }
 
-    fn title(&mut self, title: impl ToString) -> &mut Self {
-        let shape = self.peek().shape.clone();
-        self.write().shape = shape.title(title);
-        self
-    }
+    // fn title(&mut self, title: impl ToString) -> &mut Self {
+    //     let shape = self.peek().shape.clone();
+    //     self.write().shape = shape.title(title);
+    //     self
+    // }
 
-    fn duration_in_ms(&mut self, duration: u32) -> &mut Self {
-        let shape = self.peek().shape.clone();
-        self.write().shape = shape.duration_in_ms(duration);
-        self
-    }
+    // fn duration_in_ms(&mut self, duration: u32) -> &mut Self {
+    //     let shape = self.peek().shape.clone();
+    //     self.write().shape = shape.duration_in_ms(duration);
+    //     self
+    // }
 
-    fn animation(&mut self, animation: Animation) -> &mut Self {
-        let shape = self.peek().shape.clone();
-        self.write().shape = shape.animation(animation);
-        self
-    }
+    // fn animation(&mut self, animation: Animation) -> &mut Self {
+    //     let shape = self.peek().shape.clone();
+    //     self.write().shape = shape.animation(animation);
+    //     self
+    // }
 
-    fn is_closable(&mut self, is_closable: bool) -> &mut Self {
-        let shape = self.peek().shape.clone();
-        self.write().shape = shape.is_closable(is_closable);
-        self
-    }
+    // fn is_closable(&mut self, is_closable: bool) -> &mut Self {
+    //     let shape = self.peek().shape.clone();
+    //     self.write().shape = shape.is_closable(is_closable);
+    //     self
+    // }
 
-    /// Build a toast with success background color and title "Success"
-    /// The string passed as argument will be the description of the Toast
-    fn success(&mut self, description: impl ToString) {
-        let toast = Toast::default()
-            .title(String::from("Success"))
-            .color(Color::Success)
-            .description(rsx! {
-                p { "{description.to_string()}" }
-            });
-        self.write().toasts.push(toast);
-    }
+    // /// Build a toast with success background color and title "Success"
+    // /// The string passed as argument will be the description of the Toast
+    // fn success(&mut self, description: impl ToString) {
+    //     let toast = Toast::default()
+    //         .title(String::from("Success"))
+    //         .color(Color::Success)
+    //         .description(rsx! {
+    //             p { "{description.to_string()}" }
+    //         });
+    //     self.write().toasts.push(toast);
+    // }
 
     /// Build a toast with destructive background color and title "Error"
     /// The string passed as argument will be the description of the Toast
@@ -86,17 +90,17 @@ impl ToastRenderer for Signal<ToasterState> {
         self.write().toasts.push(toast);
     }
 
-    /// Build a toast with primary background color and title "Loading"
-    /// The string passed as argument will be the description of the Toast
-    fn loading(&mut self, description: impl ToString) {
-        let toast = Toast::default()
-            .title(String::from("Loading"))
-            .color(Color::Primary)
-            .description(rsx! {
-                p { "{description.to_string()}" }
-            });
-        self.write().toasts.push(toast);
-    }
+    // /// Build a toast with primary background color and title "Loading"
+    // /// The string passed as argument will be the description of the Toast
+    // fn loading(&mut self, description: impl ToString) {
+    //     let toast = Toast::default()
+    //         .title(String::from("Loading"))
+    //         .color(Color::Primary)
+    //         .description(rsx! {
+    //             p { "{description.to_string()}" }
+    //         });
+    //     self.write().toasts.push(toast);
+    // }
 }
 
 #[derive(Clone, PartialEq, Props, UiComp)]
@@ -178,20 +182,20 @@ impl Toast {
         self
     }
 
-    pub fn animation(mut self, animation: Animation) -> Self {
-        self.animation = animation;
-        self
-    }
+    // pub fn animation(mut self, animation: Animation) -> Self {
+    //     self.animation = animation;
+    //     self
+    // }
 
-    pub fn duration_in_ms(mut self, duration: u32) -> Self {
-        self.duration_in_ms = duration;
-        self
-    }
+    // pub fn duration_in_ms(mut self, duration: u32) -> Self {
+    //     self.duration_in_ms = duration;
+    //     self
+    // }
 
-    pub fn is_closable(mut self, is_closable: bool) -> Self {
-        self.is_closable = is_closable;
-        self
-    }
+    // pub fn is_closable(mut self, is_closable: bool) -> Self {
+    //     self.is_closable = is_closable;
+    //     self
+    // }
 }
 
 /// Define the state of an individual toast, used to animate the Toast
@@ -220,7 +224,7 @@ impl std::fmt::Display for ToastState {
 
 /// Used to render the Toast, also update the ToasterState
 #[component]
-fn ToastView(mut state: Signal<ToasterState>, toast: ReadOnlySignal<Toast>) -> Element {
+fn ToastView(mut state: Signal<ToasterState>, toast: ReadSignal<Toast>) -> Element {
     let class = toast.read().build_class();
 
     let mut toast_state = use_signal(|| ToastState::Opening);

@@ -16,7 +16,7 @@ script = "yes | cargo binstall dioxus-cli@0.7.0"
 # web
 
 [tasks.web-dev]
-script = "dx serve --web --port $PORT"
+script = "dx serve --web --port $PORT --hotpatch"
 
 [tasks.web]
 script = "dotenv cargo make web-dev"
@@ -37,7 +37,7 @@ script = "dotenv cargo make web-build"
 # desktop
 
 [tasks.desktop-dev]
-script = "dx serve --desktop"
+script = "dx serve --desktop --hotpatch"
 
 [tasks.desktop]
 script = "dotenv cargo make desktop-dev"
@@ -76,7 +76,7 @@ script = "dotenv cargo make windows-build"
 # android
 
 [tasks.android-dev]
-script = "dx serve --android -i false"
+script = "dx serve --android --hotpatch"
 
 [tasks.android]
 script = "dotenv cargo make android-dev"

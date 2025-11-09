@@ -1,9 +1,12 @@
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
+
 use dioxus_tw_components_macro::UiComp;
+
 use tailwind_fuse::tw_merge;
 
 use crate::{types::GetClass, ui::input::Input};
+
+use crate::types::*;
 
 #[derive(Clone, PartialEq, Props, UiComp)]
 pub struct InputAnimatedLabelProps {

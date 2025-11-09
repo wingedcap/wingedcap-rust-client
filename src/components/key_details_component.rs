@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use dioxus_tw_components::attributes::Side;
+use crate::types::*;
 
 use wingedcap::client::{ServerMeta, ServerWithMeta};
 

@@ -1,10 +1,13 @@
-use chrono::{DateTime, Local, TimeDelta};
-use dioxus::prelude::*;
+use dioxus::{core::IntoAttributeValue, prelude::*};
 use dioxus_core::AttributeValue;
-use dioxus_tw_components::attributes::*;
+
 use dioxus_tw_components_macro::UiComp;
 
-use crate::utils::wait;
+use chrono::{DateTime, Local, TimeDelta};
+
+use crate::utils::time::wait;
+
+use crate::types::*;
 
 use super::super::popover::POPOVER_TARGET_ID;
 
@@ -182,7 +185,7 @@ pub struct HoverCardContentProps {
     attributes: Vec<Attribute>,
 
     #[props(optional, default)]
-    pub animation: ReadOnlySignal<Animation>,
+    pub animation: ReadSignal<Animation>,
 
     children: Element,
 }
@@ -192,7 +195,7 @@ impl std::default::Default for HoverCardContentProps {
         Self {
             side: Side::Right,
             attributes: Vec::<Attribute>::default(),
-            animation: ReadOnlySignal::<Animation>::default(),
+            animation: ReadSignal::<Animation>::default(),
             children: rsx! {},
         }
     }

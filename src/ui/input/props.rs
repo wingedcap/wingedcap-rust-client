@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
 use dioxus_tw_components_macro::UiComp;
+
+use crate::types::*;
 
 #[derive(Default, Clone, PartialEq, Props, UiComp)]
 pub struct InputProps {
@@ -19,9 +20,9 @@ pub struct InputProps {
     onmounted: EventHandler<Event<MountedData>>,
 
     #[props(default)]
-    pub size: ReadOnlySignal<Size>,
+    pub size: ReadSignal<Size>,
     #[props(default)]
-    pub color: ReadOnlySignal<Color>,
+    pub color: ReadSignal<Color>,
 }
 
 #[component]

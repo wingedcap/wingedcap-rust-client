@@ -1,10 +1,11 @@
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
 use dioxus_tw_components_macro::UiComp;
 
 use lucide_dioxus::Loader;
 
 use crate::types::GetClass;
+
+use crate::types::*;
 
 #[derive(Default, Clone, PartialEq, Props, UiComp)]
 pub struct SpinnerProps {
