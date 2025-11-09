@@ -1,96 +1,99 @@
 # setup
 
 [tasks.setup]
-run_task = { name = ["tw-setup"] }
+run_task = { name = ["dioxus-install"] }
 
 
-## setup tw
+# dioxus
 
-[tasks.tw-curl]
-script = "mkdir -p tmp && curl -sL https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64 -o tmp/tw"
+[tasks.dioxus-install-063]
+script = "yes | cargo binstall dioxus-cli@0.6.3"
 
-[tasks.tw-chmod]
-script = "chmod +x tmp/tw"
-
-[tasks.tw-setup]
-run_task = { name = ["tw-curl", "tw-chmod"] }
-
-
-# twilwindcss
-
-[tasks.tw-dev]
-script = "tmp/tw -i ./src/theme/theme.css -o ./tmp/styles.css --watch > /dev/null 2>&1"
-
-[tasks.tw-build]
-script = "tmp/tw -i ./src/theme/theme.css -o ./tmp/styles.css > /dev/null 2>&1"
+[tasks.dioxus-install]
+script = "yes | cargo binstall dioxus-cli@0.7.0"
 
 
 # web
 
-[tasks.dx-dev-web]
-script = "dx serve --platform web --port $PORT"
-
-[tasks.dev-web]
-run_task = { name = ["tw-dev", "dx-dev-web"], parallel = true }
+[tasks.web-dev]
+script = "dx serve --web --port $PORT"
 
 [tasks.web]
-script = "dotenv cargo make dev-web"
+script = "dotenv cargo make web-dev"
 
-[tasks.dx-build-web]
-script = ["dx bundle --platform web"]
+[tasks.web-build-dx]
+script = "dx bundle --web --release"
 
-[tasks.build-web]
-run_task = { name = ["tw-build", "dx-build-web"] }
+[tasks.web-dist]
+script = "mkdir -p bin/web && cp -r target/dx/wingedcap-client/release/web/public/* bin/web"
+
+[tasks.web-build]
+run_task = { name = ["web-build-dx", "web-dist"] }
 
 [tasks.web-local]
-script = "dotenv cargo make build-web"
+script = "dotenv cargo make web-build"
 
 
 # desktop
 
-[tasks.dx-dev-desktop]
-script = "dx serve --platform desktop"
-
-[tasks.dev-desktop]
-run_task = { name = ["dx-dev-desktop"] }
+[tasks.desktop-dev]
+script = "dx serve --desktop"
 
 [tasks.desktop]
-script = "dotenv cargo make dev-desktop"
+script = "dotenv cargo make desktop-dev"
 
-[tasks.dx-build-desktop]
-script = "dx bundle --platform desktop"
+[tasks.desktop-build-dx]
+script = "dx bundle --desktop --release"
 
-[tasks.build-desktop]
-run_task = { name = ["tw-build", "dx-build-desktop"] }
+[tasks.linux-dist]
+script = "mkdir -p bin/linux                           && cp -r target/dx/wingedcap-client/bundle/linux/wingedcap-client            bin/linux/wingedcap         && cp -r target/dx/wingedcap-client/bundle/linux/bundle/deb/*.deb           bin/linux/wingedcap.deb         "
 
-[tasks.desktop-local]
-script = "dotenv cargo make build-desktop"
+[tasks.macos-dist]
+script = "mkdir -p bin/macos                           && cp -r target/dx/wingedcap-client/bundle/macos/bundle/macos/*.app          bin/macos/wingedcap.app     && cp -r target/dx/wingedcap-client/bundle/macos/bundle/dmg/*.dmg           bin/macos/wingedcap.dmg         "
+
+[tasks.windows-dist]
+script = "if not exist bin\\windows mkdir bin\\windows && copy  target\\dx\\wingedcap-client\\bundle\\windows\\wingedcap-client.exe bin\\windows\\wingedcap.exe                                                                                                             "
+
+[tasks.linux-build]
+run_task = { name = ["desktop-build-dx", "linux-dist"  ] }
+
+[tasks.macos-build]
+run_task = { name = ["desktop-build-dx", "macos-dist"  ] }
+
+[tasks.windows-build]
+run_task = { name = ["desktop-build-dx", "windows-dist"] }
+
+[tasks.linux-local]
+script = "dotenv cargo make linux-build"
+
+[tasks.macos-local]
+script = "dotenv cargo make macos-build"
+
+[tasks.windows-local]
+script = "dotenv cargo make windows-build"
 
 
 # android
 
-[tasks.dx-dev-android]
-script = "dx serve --platform android -i false"
-
-[tasks.emulate-android]
-script = "emulator -avd test -netdelay none -netspeed full > /dev/null 2>&1"
-
-[tasks.log-android]
-script = "adb logcat -T 1 | awk '/RustStdoutStderr/ && !/s_glBindAttribLocation/ && !/dns_config_service_android/ && !/simple_file_enumerator/ { sub(/.*RustStdoutStderr: /, \"\"); print; }'"
-
-[tasks.dev-android]
-run_task = { name = ["tw-dev", "dx-dev-android", "emulate-android", "log-android"], parallel = true }
+[tasks.android-dev]
+script = "dx serve --android -i false"
 
 [tasks.android]
-script = "dotenv cargo make dev-android"
+script = "dotenv cargo make android-dev"
 
-[tasks.dx-build-android]
-script = "dx bundle --platform android"
+[tasks.android-build-dx-063]
+script = "dx bundle --platform android --release --trace --verbose"
 
-[tasks.build-android]
-run_task = { name = ["tw-build", "dx-build-android"] }
+[tasks.android-build-dx]
+script = "dx bundle --android --release --trace --verbose"
+
+[tasks.android-dist]
+script = "mkdir -p bin/android && cp -r target/dx/wingedcap-client/release/android/app/app/build/outputs/apk/debug/app-debug.apk bin/android/wingedcap.apk"
+
+[tasks.android-build]
+run_task = { name = ["android-build-dx", "dioxus-install-063", "android-build-dx-063", "dioxus-install", "android-dist"] }
 
 [tasks.android-local]
-script = "dotenv cargo make build-android"
+script = "dotenv cargo make android-build"
 
 

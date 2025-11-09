@@ -1,4 +1,5 @@
 [application]
+tailwind_output = "tmp/styles.css"
 
 [bundle]
 identifier = "com.wingedcap.app"
