@@ -1,0 +1,134 @@
+name: bundle
+
+on:
+  push:
+    branches: ["**"]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          [
+            ubuntu-24.04,
+            ubuntu-24.04-arm,
+            macos-15-intel,
+            macos-15,
+            windows-2022,
+          ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install packages
+        if: runner.os == 'Linux'
+        run: sudo apt update && sudo apt-get install -y pkg-config libssl-dev libglib2.0-dev libgtk-3-dev libwebkit2gtk-4.1-dev libxdo-dev librsvg2-dev
+
+      - name: Install Rust
+        shell: bash
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          export PATH="$HOME/.cargo/bin:$PATH"
+
+      - name: Install cargo-binstall and cargo-make
+        shell: bash
+        run: cargo install cargo-binstall@1.15.10 && cargo binstall cargo-make@0.37.24
+
+      - name: Setup project
+        shell: bash
+        run: cargo make setup
+
+      - name: Build Android
+        if: matrix.os == 'ubuntu-24.04'
+        run: |
+          export ANDROID_HOME=/usr/lib/android-sdk
+          export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/25.2.9519653
+          export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
+          export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
+          rustup target add aarch64-linux-android
+          sudo apt install google-android-ndk-r25c-installer default-jdk
+          sudo rm -rf $ANDROID_HOME/licenses/
+          sudo mv licenses $ANDROID_HOME/
+          sudo chown -R $(whoami):$(whoami) $ANDROID_HOME
+          unset ANDROID_SDK_ROOT
+          cargo make android-build
+        env:
+          HUB_HOST: ${{ vars.HUB_HOST }}
+          HUB_PK: ${{ vars.HUB_PK }}
+
+      - name: Upload Android
+        if: matrix.os == 'ubuntu-24.04'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wingedcap-android
+          path: bin/android
+
+      - name: Build web
+        if: matrix.os == 'ubuntu-24.04'
+        run: cargo make web-build
+        env:
+          HUB_HOST: ${{ vars.HUB_HOST }}
+          HUB_PK: ${{ vars.HUB_PK }}
+
+      - name: Upload web
+        if: matrix.os == 'ubuntu-24.04'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wingedcap-web
+          path: bin/web
+
+      - name: Build Linux
+        if: runner.os == 'Linux'
+        run: cargo make linux-build
+        env:
+          HUB_HOST: ${{ vars.HUB_HOST }}
+          HUB_PK: ${{ vars.HUB_PK }}
+
+      - name: Upload Linux x64
+        if: matrix.os == 'ubuntu-24.04'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wingedcap-linux-x64
+          path: bin/linux
+
+      - name: Upload Linux arm64
+        if: matrix.os == 'ubuntu-24.04-arm'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wingedcap-linux-arm64
+          path: bin/linux
+
+      - name: Build macOS
+        if: runner.os == 'macOS'
+        run: cargo make macos-build
+        env:
+          HUB_HOST: ${{ vars.HUB_HOST }}
+          HUB_PK: ${{ vars.HUB_PK }}
+
+      - name: Upload macOS x64
+        if: matrix.os == 'macos-15-intel'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wingedcap-macos-x64
+          path: bin/macos
+
+      - name: Upload macOS arm64
+        if: matrix.os == 'macos-15'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wingedcap-macos-arm64
+          path: bin/macos
+
+      - name: Build Windows
+        if: runner.os == 'Windows'
+        run: cargo make windows-build
+        env:
+          HUB_HOST: ${{ vars.HUB_HOST }}
+          HUB_PK: ${{ vars.HUB_PK }}
+
+      - name: Upload Windows x64
+        if: matrix.os == 'windows-2022'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wingedcap-windows-x64
+          path: bin/windows
