@@ -19,12 +19,13 @@ mod views;
 fn main() {
     #[cfg(any(target_os = "linux", target_os = "macos", target_os = "windows"))]
     {
-        let launcher = dioxus::LaunchBuilder::new().with_cfg(dioxus::desktop::Config::default().with_menu(None));
+        let launcher = dioxus::LaunchBuilder::new()
+            .with_cfg(dioxus::desktop::Config::default().with_menu(None));
         launcher.launch(app::App);
     }
 
-    #[cfg(target_os = "android")]
+    #[cfg(any(target_family = "wasm", target_os = "android"))]
     {
-        dioxus::launch(app::App);        
+        dioxus::launch(app::App);
     }
 }
