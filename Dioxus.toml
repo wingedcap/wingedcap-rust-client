@@ -1,9 +1,10 @@
 [application]
+tailwind_output = "tmp/styles.css"
 
 [bundle]
 identifier = "com.wingedcap.app"
 publisher = "wingedcap"
-icon = ["src/theme/icon.ico"]
+icon = ["src/theme/icon.png"]
 
 [web.app]
 

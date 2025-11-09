@@ -2,6 +2,9 @@
 target/*
 tmp
 
+# bin
+/bin
+
 # rustfmt
 **/*.rs.bk
 
