@@ -67,7 +67,7 @@ script = "dx serve --android --hotpatch"
 script = "dotenv cargo make android-dev"
 
 [tasks.android-build-dx]
-script = "dx bundle --android --release --trace --verbose"
+script = "dx bundle --android --release"
 
 [tasks.android-dist]
 script = "mkdir -p bin/android && cp -r target/dx/wingedcap-client/release/android/app/app/build/outputs/apk/debug/app-debug.apk bin/android/wingedcap.apk"
