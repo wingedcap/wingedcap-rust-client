@@ -30,13 +30,9 @@ jobs:
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
           export PATH="$HOME/.cargo/bin:$PATH"
 
-      - name: Install cargo-binstall and cargo-make
+      - name: Install cargo-binstall, cargo-make & dioxus-cli
         shell: bash
-        run: cargo install cargo-binstall@1.15.10 && cargo binstall cargo-make@0.37.24
-
-      - name: Setup project
-        shell: bash
-        run: cargo make setup
+        run: cargo install cargo-binstall@1.15.10 && cargo binstall cargo-make@0.37.24 && cargo binstall dioxus-cli@0.7.0
 
       - name: Build Android
         if: matrix.os == 'macos-15'

@@ -1,15 +1,3 @@
-# setup
-
-[tasks.setup]
-run_task = { name = ["dioxus-install"] }
-
-
-# dioxus
-
-[tasks.dioxus-install]
-script = "yes | cargo binstall dioxus-cli@0.7.0"
-
-
 # web
 
 [tasks.web-dev]
