@@ -1,5 +1,6 @@
 use dioxus::{dioxus_core::AttributeValue, prelude::Attribute};
-use dioxus_tw_components::attributes::UiComp;
+
+use crate::types::UiComp;
 
 pub trait GetClass {
     fn get_class(&mut self) -> String;

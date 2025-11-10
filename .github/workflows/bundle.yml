@@ -39,17 +39,11 @@ jobs:
         run: cargo make setup
 
       - name: Build Android
-        if: matrix.os == 'ubuntu-24.04'
+        if: matrix.os == 'macos-15'
         run: |
-          export ANDROID_HOME=/usr/lib/android-sdk
-          export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/25.2.9519653
-          export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
-          export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
-          rustup target add aarch64-linux-android
-          sudo apt install google-android-ndk-r25c-installer default-jdk
-          sudo rm -rf $ANDROID_HOME/licenses/
-          sudo mv licenses $ANDROID_HOME/
-          sudo chown -R $(whoami):$(whoami) $ANDROID_HOME
+          brew install --cask android-commandlinetools
+          yes | sdkmanager --install "ndk;25.2.9519653"
+          export ANDROID_HOME=$(brew --prefix)/share/android-commandlinetools
           unset ANDROID_SDK_ROOT
           cargo make android-build
         env:
@@ -57,7 +51,7 @@ jobs:
           HUB_PK: ${{ vars.HUB_PK }}
 
       - name: Upload Android
-        if: matrix.os == 'ubuntu-24.04'
+        if: matrix.os == 'macos-15'
         uses: actions/upload-artifact@v4
         with:
           name: wingedcap-android

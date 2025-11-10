@@ -1,12 +1,15 @@
-use chrono::{DateTime, Local};
-use dioxus::prelude::*;
+use dioxus::{core::IntoAttributeValue, prelude::*};
 use dioxus_core::AttributeValue;
-use dioxus_tw_components::attributes::*;
+
 use dioxus_tw_components_macro::UiComp;
 
 use lucide_dioxus::{Check, ChevronDown};
 
 use tailwind_fuse::tw_merge;
+
+use chrono::{DateTime, Local};
+
+use crate::types::*;
 
 use super::super::popover::POPOVER_TARGET_ID;
 
@@ -211,7 +214,7 @@ pub struct SelectContentProps {
     attributes: Vec<Attribute>,
 
     #[props(optional, default)]
-    pub animation: ReadOnlySignal<Animation>,
+    pub animation: ReadSignal<Animation>,
 
     children: Element,
 }
@@ -220,7 +223,7 @@ impl std::default::Default for SelectContentProps {
     fn default() -> Self {
         Self {
             attributes: Vec::<Attribute>::default(),
-            animation: ReadOnlySignal::<Animation>::default(),
+            animation: ReadSignal::<Animation>::default(),
             children: rsx! {},
         }
     }

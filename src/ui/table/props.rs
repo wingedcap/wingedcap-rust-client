@@ -1,6 +1,8 @@
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
+
 use dioxus_tw_components_macro::UiComp;
+
+use crate::types::*;
 
 #[derive(Clone, PartialEq, Props, UiComp)]
 pub struct TableProps {

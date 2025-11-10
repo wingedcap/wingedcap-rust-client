@@ -1,6 +1,6 @@
 use super::props::*;
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
+// use dioxus_tw_components::attributes::*;
 
 impl Class for ScrollableProps {
     fn base(&self) -> &'static str {

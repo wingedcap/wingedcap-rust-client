@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
 use dioxus_tw_components_macro::UiComp;
+
+use crate::types::*;
 
 #[derive(Clone, PartialEq, Props, UiComp)]
 pub struct ScrollableProps {
@@ -8,7 +9,7 @@ pub struct ScrollableProps {
     attributes: Vec<Attribute>,
 
     #[props(optional, default)]
-    pub orientation: ReadOnlySignal<Orientation>,
+    pub orientation: ReadSignal<Orientation>,
 
     children: Element,
 }
@@ -17,7 +18,7 @@ impl std::default::Default for ScrollableProps {
     fn default() -> Self {
         Self {
             attributes: Vec::<Attribute>::default(),
-            orientation: ReadOnlySignal::<Orientation>::default(),
+            orientation: ReadSignal::<Orientation>::default(),
             children: rsx! {},
         }
     }

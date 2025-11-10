@@ -1,8 +1,9 @@
-use chrono::{DateTime, Local, TimeDelta};
 use dioxus::prelude::*;
 use dioxus_core::AttributeValue;
-use dioxus_tw_components::attributes::*;
+
 use dioxus_tw_components_macro::UiComp;
+
+use chrono::{DateTime, Local, TimeDelta};
 
 use crate::utils::time::wait;
 
@@ -176,7 +177,7 @@ pub struct DropdownContentProps {
     attributes: Vec<Attribute>,
 
     #[props(optional, default)]
-    pub animation: ReadOnlySignal<Animation>,
+    pub animation: ReadSignal<Animation>,
 
     children: Element,
 }
@@ -185,7 +186,7 @@ impl std::default::Default for DropdownContentProps {
     fn default() -> Self {
         Self {
             attributes: Vec::<Attribute>::default(),
-            animation: ReadOnlySignal::<Animation>::default(),
+            animation: ReadSignal::<Animation>::default(),
             children: rsx! {},
         }
     }

@@ -1,7 +1,9 @@
-use super::style::ButtonVariant;
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
 use dioxus_tw_components_macro::UiComp;
+
+use crate::types::*;
+
+use super::style::ButtonVariant;
 
 #[derive(Clone, PartialEq, Props, UiComp)]
 pub struct ButtonProps {
@@ -9,13 +11,13 @@ pub struct ButtonProps {
     attributes: Vec<Attribute>,
 
     #[props(optional, default)]
-    pub color: ReadOnlySignal<Color>,
+    pub color: ReadSignal<Color>,
     #[props(optional, default)]
-    pub size: ReadOnlySignal<Size>,
+    pub size: ReadSignal<Size>,
     #[props(optional, default)]
-    pub variant: ReadOnlySignal<ButtonVariant>,
+    pub variant: ReadSignal<ButtonVariant>,
     #[props(optional, default)]
-    pub animation: ReadOnlySignal<Animation>,
+    pub animation: ReadSignal<Animation>,
 
     #[props(optional)]
     onclick: EventHandler<MouseEvent>,
@@ -33,10 +35,10 @@ impl std::default::Default for ButtonProps {
     fn default() -> Self {
         Self {
             attributes: Vec::<Attribute>::default(),
-            color: ReadOnlySignal::<Color>::default(),
-            size: ReadOnlySignal::<Size>::default(),
-            variant: ReadOnlySignal::<ButtonVariant>::default(),
-            animation: ReadOnlySignal::<Animation>::default(),
+            color: ReadSignal::<Color>::default(),
+            size: ReadSignal::<Size>::default(),
+            variant: ReadSignal::<ButtonVariant>::default(),
+            animation: ReadSignal::<Animation>::default(),
             onclick: EventHandler::<MouseEvent>::default(),
             onmouseenter: EventHandler::<MouseEvent>::default(),
             onmouseleave: EventHandler::<MouseEvent>::default(),

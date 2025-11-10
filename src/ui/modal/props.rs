@@ -1,10 +1,11 @@
-use dioxus::prelude::*;
+use dioxus::{core::IntoAttributeValue, prelude::*};
 use dioxus_core::AttributeValue;
-use dioxus_tw_components::attributes::*;
+
 use dioxus_tw_components_macro::UiComp;
 
 use lucide_dioxus::X;
 
+use crate::types::*;
 #[derive(Clone, Copy, Debug)]
 pub struct ModalState {
     _open: bool,
@@ -193,7 +194,7 @@ pub struct ModalContentProps {
     attributes: Vec<Attribute>,
 
     #[props(optional, default)]
-    pub animation: ReadOnlySignal<Animation>,
+    pub animation: ReadSignal<Animation>,
 
     children: Element,
 }
@@ -202,7 +203,7 @@ impl std::default::Default for ModalContentProps {
     fn default() -> Self {
         Self {
             attributes: Vec::<Attribute>::default(),
-            animation: ReadOnlySignal::<Animation>::default(),
+            animation: ReadSignal::<Animation>::default(),
             children: rsx! {},
         }
     }
@@ -228,9 +229,9 @@ pub struct ModalBackgroundProps {
     attributes: Vec<Attribute>,
 
     #[props(optional, default)]
-    pub color: ReadOnlySignal<Color>,
+    pub color: ReadSignal<Color>,
     #[props(optional, default)]
-    pub animation: ReadOnlySignal<Animation>,
+    pub animation: ReadSignal<Animation>,
     #[props(optional, default)]
     onclick: EventHandler<MouseEvent>,
 
@@ -242,8 +243,8 @@ impl std::default::Default for ModalBackgroundProps {
         Self {
             interactive: true,
             attributes: Vec::<Attribute>::default(),
-            color: ReadOnlySignal::<Color>::default(),
-            animation: ReadOnlySignal::<Animation>::default(),
+            color: ReadSignal::<Color>::default(),
+            animation: ReadSignal::<Animation>::default(),
             onclick: EventHandler::<MouseEvent>::default(),
             children: rsx! {},
         }

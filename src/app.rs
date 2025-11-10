@@ -2,7 +2,6 @@ use cross_storage::{storage_get, storage_set};
 
 use dioxus::prelude::*;
 
-use dioxus_tw_components::prelude::DioxusTwComponentsBootstrap;
 use lucide_dioxus::{ScanEye, Send};
 
 use crate::{
@@ -33,14 +32,8 @@ pub fn App() -> Element {
         document::Link { rel: "stylesheet", href: CSS_HREF }
         style { {CSS_STYLE} }
 
-        // launches Dioxus Tailwind Components
-        // some components may not work without this
-        DioxusTwComponentsBootstrap {}
-
         // required for popover components
         div { id: POPOVER_TARGET_ID }
-
-
 
         Toaster {
 

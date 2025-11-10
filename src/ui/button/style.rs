@@ -1,8 +1,9 @@
 use std::str::FromStr;
 
-use super::props::*;
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
+
+use super::props::*;
+use crate::types::*;
 
 impl Class for ButtonProps {
     fn base(&self) -> &'static str {

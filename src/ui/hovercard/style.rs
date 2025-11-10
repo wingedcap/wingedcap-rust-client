@@ -1,6 +1,7 @@
 use super::props::*;
 use dioxus::prelude::*;
-use dioxus_tw_components::attributes::*;
+
+use crate::types::*;
 
 impl Class for HoverCardProps {
     fn base(&self) -> &'static str {
