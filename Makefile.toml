@@ -6,9 +6,6 @@ run_task = { name = ["dioxus-install"] }
 
 # dioxus
 
-[tasks.dioxus-install-063]
-script = "yes | cargo binstall dioxus-cli@0.6.3"
-
 [tasks.dioxus-install]
 script = "yes | cargo binstall dioxus-cli@0.7.0"
 
@@ -81,9 +78,6 @@ script = "dx serve --android --hotpatch"
 [tasks.android]
 script = "dotenv cargo make android-dev"
 
-[tasks.android-build-dx-063]
-script = "dx bundle --platform android --release --trace --verbose"
-
 [tasks.android-build-dx]
 script = "dx bundle --android --release --trace --verbose"
 
@@ -91,7 +85,7 @@ script = "dx bundle --android --release --trace --verbose"
 script = "mkdir -p bin/android && cp -r target/dx/wingedcap-client/release/android/app/app/build/outputs/apk/debug/app-debug.apk bin/android/wingedcap.apk"
 
 [tasks.android-build]
-run_task = { name = ["android-build-dx", "dioxus-install-063", "android-build-dx-063", "dioxus-install", "android-dist"] }
+run_task = { name = ["android-build-dx", "android-dist"] }
 
 [tasks.android-local]
 script = "dotenv cargo make android-build"
