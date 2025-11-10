@@ -18,5 +18,7 @@
   "rust-analyzer.cargo.extraEnv": {
     "HUB_HOST": "",
     "HUB_PK": ""
-  }
+  },
+
+  "liveServer.settings.root": "bin/web"
 }
