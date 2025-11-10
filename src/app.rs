@@ -13,7 +13,7 @@ use crate::{
     views::{ReceiverView, SenderView},
 };
 
-const FAVICON: Asset = asset!("/src/theme/fav.svg");
+const FAVICON: Asset = asset!("/icons/icon.svg");
 
 const CSS_HREF: Asset = asset!("/tmp/styles.css");
 const CSS_STYLE: &str = include_str!("../tmp/styles.css");
